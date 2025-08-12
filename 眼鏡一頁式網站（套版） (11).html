@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>【店名佔位】｜眼鏡一頁式官方網站｜專注配鏡流程與品牌展示</title>
+  <meta name="description" content="【店名佔位】一頁式眼鏡網站範本。包含品牌展示、舒適空間、配鏡流程、線上預約與聯絡資訊。手機優化與SEO結構完善。" />
+  <!-- 需求：三個主要關鍵字（可自行修改） -->
+  <meta name="keywords" content="眼鏡行, 配鏡, 視覺保健" />
+  <link rel="canonical" href="https://example.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="【店名佔位】｜眼鏡一頁式官方網站" />
+  <meta property="og:description" content="品牌展示、空間導覽、配鏡流程與線上預約。手機優化，瀏覽順暢。" />
+  <meta property="og:url" content="https://example.com/" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1512374382149-233c42b6a83f?w=1200" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+
+  <!-- Font Awesome (懸浮按鈕與流程ICON用) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- Swiper (空間介紹輪播) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    :root{
+      --bg: #0b0d13;
+      --fg: #e9eef5;
+      --muted:#a9b2c0;
+      --brand:#5ad4ff; /* 主色：冷色系，科技感 */
+      --brand-2:#7cffc1; /* 輔色：清新綠 */
+      --card:#121520;
+      --glass: rgba(255,255,255,.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 20px;
+    }
+
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:'Noto Sans TC', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--fg); background:var(--bg); line-height:1.6; overflow-x:hidden;
+    }
+
+    a{color:var(--brand); text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{width:min(1200px, 92vw); margin-inline:auto}
+    .section{padding:80px 0; scroll-margin-top: 84px}
+
+    /* ======= Hero + 特效 ======= */
+    header.hero{position:relative; min-height:100svh; display:grid; place-items:center; overflow:hidden}
+    .gradient-bg{position:absolute; inset:-20%; background:radial-gradient(60% 60% at 70% 30%, rgba(90,212,255,.5), transparent 60%), radial-gradient(60% 60% at 30% 70%, rgba(124,255,193,.4), transparent 60%), linear-gradient(120deg, #111422, #0b0d13 60%); filter:saturate(1.2); animation:floatGrad 16s ease-in-out infinite alternate}
+    @keyframes floatGrad{to{transform:translate3d(0,-2%,0) scale(1.04)}}
+
+    /* 玻璃卡片與掃描光特效 */
+    .hero-card{position:relative; background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); backdrop-filter:saturate(120%) blur(8px); border:1px solid rgba(255,255,255,.1); border-radius: var(--radius); box-shadow:var(--shadow); padding:40px 28px; z-index:2}
+    .hero-card:before{content:""; position:absolute; inset:-1px; border-radius:inherit; background:conic-gradient(from 0deg, rgba(90,212,255,.0) 0deg, rgba(90,212,255,.35) 120deg, rgba(124,255,193,.0) 240deg); filter:blur(8px); animation:spin 10s linear infinite}
+    @keyframes spin{to{transform:rotate(1turn)}}
+    .scan{position:absolute; inset:0; overflow:hidden; border-radius:inherit; pointer-events:none}
+    .scan::before{content:""; position:absolute; left:-40%; top:0; width:40%; height:180%; transform:rotate(20deg); background:linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent); animation:scan 6s ease-in-out infinite}
+    @keyframes scan{50%{left:110%}}
+
+    .hero-title{font-size: clamp(28px, 5vw, 56px); line-height:1.15; margin:0 0 12px; letter-spacing:.5px}
+    .hero-sub{color:var(--muted); margin:0 0 24px; font-size: clamp(14px, 2.6vw, 18px)}
+    .hero-cta{display:flex; gap:12px; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:999px; border:1px solid transparent; background:var(--brand); color:#001018; font-weight:700; box-shadow:var(--shadow); cursor:pointer}
+    .btn.secondary{background:transparent; color:var(--fg); border-color:rgba(255,255,255,.18)}
+
+    /* Sticky mini-nav */
+    .mini-nav{position:fixed; top:0; inset-inline:0; display:flex; justify-content:center; gap:16px; padding:10px; z-index:100; backdrop-filter:blur(8px); background:linear-gradient(180deg, rgba(8,10,16,.75), rgba(8,10,16,.35)); border-bottom:1px solid rgba(255,255,255,.06); transform:translateY(-100%); transition:transform .35s ease}
+    .mini-nav.show{transform:none}
+    .mini-nav a{color:#dce6f3; padding:8px 12px; border-radius:999px; font-size:14px; border:1px solid transparent}
+    .mini-nav a:hover{border-color:rgba(255,255,255,.15)}
+
+    /* ======= Section titles ======= */
+    .eyebrow{letter-spacing:.2em; text-transform:uppercase; color:var(--brand-2); font-size:12px; font-weight:800}
+    .stitle{font-size: clamp(22px, 3.6vw, 36px); margin:.4rem 0 1rem}
+    .sdesc{color:var(--muted); max-width:70ch}
+
+    /* ======= 精神介紹 ======= */
+    .values{display:grid; grid-template-columns: repeat(12, 1fr); gap:18px; align-items:start}
+    .values .card{grid-column: span 12; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow)}
+    @media(min-width:768px){
+      .values .card{grid-column: span 4}
+    }
+
+    /* ======= 空間介紹（輪播） ======= */
+    .swiper{width:100%; height: 56vw; max-height:520px; border-radius: var(--radius); box-shadow:var(--shadow)}
+    .swiper-slide{position:relative}
+    .swiper-slide img{object-fit:cover; width:100%; height:100%}
+
+    /* ======= 配鏡流程 ======= */
+    .process{display:grid; grid-template-columns: repeat(12, 1fr); gap:18px}
+    .step{grid-column: span 12; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:20px}
+    .step h4{margin:8px 0}
+    .step i{font-size:20px; color:var(--brand)}
+    @media(min-width:900px){
+      .step{grid-column: span 3}
+    }
+
+    /* ======= 品牌牆 ======= */
+    .brand-grid{display:grid; grid-template-columns: repeat(2, 1fr); gap:18px}
+    @media(min-width:700px){.brand-grid{grid-template-columns: repeat(6, 1fr)}}
+    .brand{background:#0e1220; border:1px dashed rgba(255,255,255,.12); border-radius:16px; display:grid; place-items:center; min-height:92px; padding:12px}
+    .brand img{max-height:48px; opacity:.9; filter:grayscale(30%)}
+
+    /* ======= 聯絡資訊 ======= */
+    .contact{display:grid; grid-template-columns: repeat(12, 1fr); gap:18px}
+    .card{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:20px}
+    .contact .card{grid-column: span 12}
+    @media(min-width:900px){
+      .contact .card{grid-column: span 6}
+    }
+    .hours{width:100%; border-collapse:separate; border-spacing:0 6px; font-size:15px}
+    .hours td{padding:8px 10px; background:#0e1220; border-radius:10px}
+
+    /* ======= FAQ ======= */
+    details{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:16px}
+    details+details{margin-top:12px}
+    summary{cursor:pointer; font-weight:700}
+
+    /* ======= 懸浮按鈕 ======= */
+    .float-bar{position:fixed; right:16px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:10px; z-index:120}
+    .fab{width:48px; height:48px; display:grid; place-items:center; border-radius:999px; background:var(--glass); border:1px solid rgba(255,255,255,.15); color:var(--fg); backdrop-filter: blur(8px); box-shadow:var(--shadow)}
+    .fab:hover{background:rgba(255,255,255,.18)}
+
+    .book-btn{position:fixed; right:16px; bottom:16px; z-index:130}
+
+    /* ======= 預約 Modal ======= */
+    .modal{position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; align-items:center; justify-content:center; padding:20px; z-index:200}
+    .modal.open{display:flex}
+    .modal-card{background:#0b0f1a; width:min(1100px, 96vw); height:min(96svh, 900px); border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,.12); box-shadow:var(--shadow); display:flex; flex-direction:column}
+    .modal-head{display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.08)}
+    .modal-head strong{font-size:16px}
+    .modal-body{flex:1; background:#fff; color:#111; /* 以白底承接 iframe 透明背景的情況 */
+  /* 強制以亮色系渲染原生控制元件，避免暗色系造成對比不足 */
+  color-scheme: light;}
+    .modal-body iframe{width:100%; height:100%; border:0; background:#fff; /* 若子頁透明，會透出此白底 */}
+
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(12px); transition: opacity .6s ease, transform .6s ease}
+    .reveal.show{opacity:1; transform:none}
+
+    /* Utilities */
+    .mt-2{margin-top:.5rem}.mt-3{margin-top:1rem}.mt-4{margin-top:1.5rem}
+    .grid-2{display:grid; grid-template-columns:1fr; gap:18px}
+    @media(min-width:900px){.grid-2{grid-template-columns:1fr 1fr}}
+    .center{text-align:center}
+    .muted{color:var(--muted)}
+    .badge{display:inline-block; border:1px solid rgba(255,255,255,.18); padding:6px 10px; border-radius:999px; font-size:12px; color:#d7e6f7}
+    .space-y-2 > * + * { margin-top: .75rem }
+      /* Fallback / Loader for Booking */
+    .hidden{display:none !important}
+    .fallback{display:flex; align-items:center; justify-content:center; height:100%; padding:24px; text-align:center; background:linear-gradient(180deg,#0b0f1a,#0e1220)}
+    .loader{width:48px; height:48px; border-radius:50%; border:4px solid rgba(255,255,255,.2); border-top-color: var(--brand); animation: spin2 1s linear infinite; margin: 20px auto}
+    @keyframes spin2 { to { transform: rotate(360deg) } }
+    /* ======= 品牌介紹 Modal / 圖庫 ======= */
+  .brand-item{cursor:pointer; transition: transform .2s ease, box-shadow .2s ease}
+  .brand-item:hover, .brand-item:focus{transform:translateY(-2px); box-shadow:var(--shadow); outline:2px solid rgba(90,212,255,.35)}
+  .brand-card{width:min(1100px,96vw); max-height:96svh; display:flex; flex-direction:column}
+  .brand-body{flex:1; min-height:0; display:flex; flex-direction:column; gap:12px; padding:12px; overflow:hidden}
+  .brand-info{background:#0e1220; border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; line-height:1.7; word-break:break-word; max-height:32svh; overflow:auto}
+  .brand-gallery{flex:1; min-height:40svh}
+  .brand-gallery .swiper{width:100%; height:100% !important; border-radius: var(--radius); box-shadow:var(--shadow)}
+  .brand-gallery .swiper-wrapper{align-items:center}
+  .brand-gallery .swiper-slide{display:flex; align-items:center; justify-content:center; background:#0b0f1a}
+  .brand-gallery .swiper-slide img{max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:12px}
+  @media(min-width:900px){ .brand-info{max-height:28svh} }
+</style>
+</head>
+<body>
+  <a href="#main" class="badge" style="position:absolute; left:-9999px; top:auto;">跳到主內容</a>
+
+  <!-- Sticky mini nav (滾動後顯示) -->
+  <nav class="mini-nav" aria-label="次要導覽">
+    <a href="#values">精神</a>
+    <a href="#space">空間</a>
+    <a href="#process">流程</a>
+    <a href="#brands">品牌</a>
+    <a href="#contact">聯絡</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+
+  <!-- Section 1: 標頭 + 炫麗特效 -->
+  <header class="hero" id="top" role="banner" aria-label="網站開場">
+    <div class="gradient-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-card reveal">
+        <div class="scan"></div>
+        <p class="eyebrow">【店名佔位】</p>
+        <h1 class="hero-title">看見細節，定義你的風格</h1>
+        <p class="hero-sub">本範本為一頁式眼鏡網站套版。內容遵循中性與資訊揭露原則，不涉及醫療或療效宣稱，可直接替換文案與圖片。</p>
+        <div class="hero-cta">
+          <button class="btn" id="openBooking"><i class="fa-solid fa-calendar-check"></i> 立即預約</button>
+          <a class="btn secondary" href="#space"><i class="fa-solid fa-images"></i> 先看空間</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Section 2: 精神介紹 -->
+    <section class="section" id="values" aria-labelledby="values-title">
+      <div class="container">
+        <p class="eyebrow reveal">Section 2</p>
+        <h2 class="stitle reveal" id="values-title">品牌精神 / 服務理念</h2>
+        <p class="sdesc reveal">我們重視清楚溝通、適配建議與舒適配戴體驗。下列三點為可替換的核心理念文字，保持中性描述，不涉及療效宣稱。</p>
+        <div class="values mt-3">
+          <div class="card reveal">
+            <span class="badge">1 / 溝通</span>
+            <h3 class="mt-2">了解你的日常情境</h3>
+            <p class="muted">透過日常使用情境與習慣的資訊蒐集，提供鏡框與鏡片的搭配建議。</p>
+          </div>
+          <div class="card reveal">
+            <span class="badge">2 / 舒適</span>
+            <h3 class="mt-2">配戴感受優先</h3>
+            <p class="muted">從鼻托到鏡腳微調，追求穩定與舒適的配戴體驗。</p>
+          </div>
+          <div class="card reveal">
+            <span class="badge">3 / 美感</span>
+            <h3 class="mt-2">風格與臉型協調</h3>
+            <p class="muted">以臉型、膚色與場合需求做整體建議，呈現自然協調的風格。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: 空間介紹（輪播，可放 5 張以上） -->
+    <section class="section" id="space" aria-labelledby="space-title">
+      <div class="container">
+        <p class="eyebrow reveal">Section 3</p>
+        <h2 class="stitle reveal" id="space-title">空間介紹</h2>
+        <p class="sdesc reveal">以下為展示用圖片，請自行替換為門市實景。支援滑動與左右切換，桌機與手機皆適配。</p>
+
+        <div class="swiper mt-3 reveal" aria-label="空間輪播" id="spaceSwiper">
+          <div class="swiper-wrapper">
+            <!-- 至少 5 張，可自由增加 -->
+            <div class="swiper-slide"><img loading="lazy" src="https://images.unsplash.com/photo-1556228578-8de8cf1b7c5a?w=1600" alt="門市空間示意1"></div>
+            <div class="swiper-slide"><img loading="lazy" src="https://images.unsplash.com/photo-1582582514284-f4f99b2985b2?w=1600" alt="門市空間示意2"></div>
+            <div class="swiper-slide"><img loading="lazy" src="https://images.unsplash.com/photo-1506089682124-cc3f6fa8e97e?w=1600" alt="門市空間示意3"></div>
+            <div class="swiper-slide"><img loading="lazy" src="https://images.unsplash.com/photo-1549476464-37392f717541?w=1600" alt="門市空間示意4"></div>
+            <div class="swiper-slide"><img loading="lazy" src="https://images.unsplash.com/photo-1512374382149-233c42b6a83f?w=1600" alt="門市空間示意5"></div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="上一張"></div>
+          <div class="swiper-button-next" aria-label="下一張"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: 配鏡流程（按鈕觸發預約彈窗） -->
+    <section class="section" id="process" aria-labelledby="process-title">
+      <div class="container">
+        <p class="eyebrow reveal">Section 4</p>
+        <h2 class="stitle reveal" id="process-title">配鏡流程</h2>
+        <p class="sdesc reveal">以下流程為一般資訊性說明，不涉及任何療效承諾；如有視覺需求，請依專業人員現場指引進行合規服務。</p>
+
+        <div class="process mt-3">
+          <div class="step reveal">
+            <i class="fa-solid fa-eye"></i>
+            <h4>1. 視力檢測</h4>
+            <p class="muted">了解目前視覺狀況與日常需求，做為後續鏡片與鏡框建議的依據。</p>
+          </div>
+          <div class="step reveal">
+            <i class="fa-solid fa-glasses"></i>
+            <h4>2. 鏡框試戴</h4>
+            <p class="muted">依臉型比例、鼻樑高度與慣用場景，試戴並挑選合適框型。</p>
+          </div>
+          <div class="step reveal">
+            <i class="fa-regular fa-circle"></i>
+            <h4>3. 鏡片選擇</h4>
+            <p class="muted">依使用情境提供鏡片材質與功能建議（無療效宣稱之中性描述）。</p>
+          </div>
+          <div class="step reveal">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <h4>4. 鏡架調整</h4>
+            <p class="muted">佩戴後進行鬆緊、水平與配重微調，追求穩定與舒適。</p>
+          </div>
+        </div>
+
+        <div class="center mt-4 reveal">
+          <button class="btn" id="openBooking2"><i class="fa-solid fa-calendar-check"></i> 立即預約</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: 鏡框品牌 -->
+    <section class="section" id="brands" aria-labelledby="brands-title">
+      <div class="container">
+        <p class="eyebrow reveal">Section 5</p>
+        <h2 class="stitle reveal" id="brands-title">鏡框品牌</h2>
+        <p class="sdesc reveal">下方為示意，可替換為實際合作品牌Logo或品牌字樣。</p>
+        <div class="brand-grid mt-3">
+          <div class="brand reveal brand-item" tabindex="0" role="button" aria-label="查看品牌A介紹"
+  data-title="品牌A"
+  data-desc="品牌A：簡介示意，請替換為真實品牌故事、材質特色與設計風格。"
+  data-images="https://images.unsplash.com/photo-1520975916090-3105956dac38?w=1600|https://images.unsplash.com/photo-1591969253294-0e5c9f2c0465?w=1600|https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=1600">
+  <img src="https://dummyimage.com/240x80/152238/ffffff&text=Brand+A" alt="品牌A">
+</div>
+          <div class="brand reveal brand-item" tabindex="0" role="button" aria-label="查看品牌B介紹"
+  data-title="品牌B"
+  data-desc="品牌B：主打輕量金屬與極簡幾何。"
+  data-images="https://images.unsplash.com/photo-1520975619010-56a1c1e7fdfe?w=1600|https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600|https://images.unsplash.com/photo-1490111718993-d98654ce6cf7?w=1600">
+  <img src="https://dummyimage.com/240x80/152238/ffffff&text=Brand+B" alt="品牌B">
+</div>
+          <div class="brand reveal brand-item" tabindex="0" role="button" aria-label="查看品牌C介紹"
+  data-title="品牌C"
+  data-desc="品牌C：色彩大膽、俐落線條，強調個性與搭配性。"
+  data-images="https://images.unsplash.com/photo-1504051771394-dd2e66b2e08f?w=1600|https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600|https://images.unsplash.com/photo-1545235617-9465d2a55698?w=1600">
+  <img src="https://dummyimage.com/240x80/152238/ffffff&text=Brand+C" alt="品牌C">
+</div>
+          <div class="brand reveal brand-item" tabindex="0" role="button" aria-label="查看品牌D介紹"
+  data-title="品牌D"
+  data-desc="品牌D：經典圓框與職人質感，偏向文青與復古風。"
+  data-images="https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=1600|https://images.unsplash.com/photo-1504051771394-dd2e66b2e08f?w=1600|https://images.unsplash.com/photo-1516382799247-87df95d790f4?w=1600">
+  <img src="https://dummyimage.com/240x80/152238/ffffff&text=Brand+D" alt="品牌D">
+</div>
+          <div class="brand reveal brand-item" tabindex="0" role="button" aria-label="查看品牌E介紹"
+  data-title="品牌E"
+  data-desc="品牌E：鈦合金結構、輕盈耐用。"
+  data-images="https://images.unsplash.com/photo-1514029322001-7ffaf7aab2d8?w=1600|https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=1600|https://images.unsplash.com/photo-1504893524553-b8553f72df86?w=1600">
+  <img src="https://dummyimage.com/240x80/152238/ffffff&text=Brand+E" alt="品牌E">
+</div>
+          <div class="brand reveal brand-item" tabindex="0" role="button" aria-label="查看品牌F介紹"
+  data-title="品牌F"
+  data-desc="品牌F：日常百搭、簡潔俐落。"
+  data-images="https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?w=1600|https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600|https://images.unsplash.com/photo-1520975624746-4a43a76b6401?w=1600">
+  <img src="https://dummyimage.com/240x80/152238/ffffff&text=Brand+F" alt="品牌F">
+</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: 營業 / 聯絡資訊 -->
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <p class="eyebrow reveal">Section 6</p>
+        <h2 class="stitle reveal" id="contact-title">營業時間與聯絡</h2>
+        <div class="contact mt-3">
+          <div class="card reveal">
+            <h3 class="mt-2">營業時間</h3>
+            <table class="hours mt-2" aria-label="營業時間表">
+              <tbody>
+                <tr><td>週一</td><td><time datetime="10:00">10:00</time> – <time datetime="21:00">21:00</time></td></tr>
+                <tr><td>週二</td><td><time datetime="10:00">10:00</time> – <time datetime="21:00">21:00</time></td></tr>
+                <tr><td>週三</td><td><time datetime="10:00">10:00</time> – <time datetime="21:00">21:00</time></td></tr>
+                <tr><td>週四</td><td><time datetime="10:00">10:00</time> – <time datetime="21:00">21:00</time></td></tr>
+                <tr><td>週五</td><td><time datetime="10:00">10:00</time> – <time datetime="21:00">21:00</time></td></tr>
+                <tr><td>週六</td><td><time datetime="11:00">11:00</time> – <time datetime="20:00">20:00</time></td></tr>
+                <tr><td>週日</td><td>公休</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card reveal space-y-2">
+            <h3 class="mt-2">聯絡資訊</h3>
+            <p><i class="fa-solid fa-phone"></i> 電話：<a href="tel:+886-2-0000-0000">+886-2-0000-0000</a></p>
+            <p><i class="fa-solid fa-location-dot"></i> 地址：<a href="#" rel="noopener">台中市○○區○○路 100 號</a></p>
+            <p><i class="fa-brands fa-line"></i> LINE：<a href="#" target="_blank" rel="noopener">加入好友</a></p>
+            <p><i class="fa-brands fa-facebook"></i> Facebook：<a href="#" target="_blank" rel="noopener">粉專</a></p>
+            <p><i class="fa-brands fa-instagram"></i> Instagram：<a href="#" target="_blank" rel="noopener">IG</a></p>
+            <p class="muted">※ 本頁面為範本。若涉及廣告法規，請依地方法規審核調整用詞。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: FAQ（需求文件標示為第二個 section6，已校正序號） -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <p class="eyebrow reveal">Section 7</p>
+        <h2 class="stitle reveal" id="faq-title">常見問題 FAQ</h2>
+        <div class="grid-2 mt-3">
+          <div>
+            <details class="reveal">
+              <summary>是否提供線上預約？</summary>
+              <div class="muted mt-2">提供。點擊右下角「立即預約」或頁面中的同名按鈕，將開啟預約彈窗。</div>
+            </details>
+            <details class="reveal">
+              <summary>可以自帶鏡框或鏡片嗎？</summary>
+              <div class="muted mt-2">可攜帶現有鏡框進行搭配建議；實際加工與安裝以現場為準。</div>
+            </details>
+            <details class="reveal">
+              <summary>是否提供售後調整？</summary>
+              <div class="muted mt-2">提供鏡架鬆緊、水平與鼻托微調等售後服務（依店內公告為準）。</div>
+            </details>
+          </div>
+          <div>
+            <details class="reveal">
+              <summary>配鏡時間需要多久？</summary>
+              <div class="muted mt-2">依鏡片與加工狀況而定，現場將提供預估時間與通知方式。</div>
+            </details>
+            <details class="reveal">
+              <summary>是否提供發票或收據？</summary>
+              <div class="muted mt-2">依規定開立，詳細內容請洽現場服務人員。</div>
+            </details>
+            <details class="reveal">
+              <summary>是否可刷卡或行動支付？</summary>
+              <div class="muted mt-2">支援多元支付方式，實際依店內公告為準。</div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 懸浮聯絡列 + 預約鈕 -->
+  <div class="float-bar" aria-label="快速聯絡">
+    <a class="fab" href="tel:+886-2-0000-0000" aria-label="撥打電話"><i class="fa-solid fa-phone"></i></a>
+    <a class="fab" href="#" target="_blank" aria-label="LINE"><i class="fa-brands fa-line"></i></a>
+    <a class="fab" href="#" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a class="fab" href="#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+  </div>
+  <button class="btn book-btn" id="openBooking3" aria-label="開啟預約彈窗"><i class="fa-solid fa-calendar-check"></i> 立即預約</button>
+
+  <!-- 預約 Modal -->
+  <div class="modal" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingTitle" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <strong id="bookingTitle">線上預約</strong>
+        <button class="fab" id="closeBooking" aria-label="關閉預約"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+      <div class="fallback hidden" id="bookingFallback">
+        <div class="center" style="width:100%">
+          <div class="loader" aria-hidden="true"></div>
+          <h3>正在開啟預約頁面…</h3>
+          <p class="muted">若 3 秒內未顯示，代表 Google 對外站 <code>iframe</code> 限制，請改用新分頁。</p>
+          <p class="mt-3"><a class="btn" id="openInNewTab"><i class="fa-solid fa-up-right-from-square"></i> 在新分頁開啟預約</a></p>
+        </div>
+      </div>
+      <iframe title="線上預約外掛" id="bookingFrame" referrerpolicy="no-referrer-when-downgrade" style="background:#fff" allowtransparency="true"></iframe>
+      </div>
+    </div>
+  </div>
+  <!-- 品牌介紹 Modal -->
+  <div class="modal" id="brandModal" role="dialog" aria-modal="true" aria-labelledby="brandTitle" aria-hidden="true">
+    <div class="modal-card brand-card">
+      <div class="modal-head">
+        <strong id="brandTitle">品牌介紹</strong>
+        <button class="fab" id="closeBrand" aria-label="關閉品牌介紹"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="brand-body">
+        <div class="brand-info">
+          <p id="brandDesc" class="muted">點擊品牌後會顯示對應的簡介與圖片。</p>
+        </div>
+        <div class="brand-gallery">
+          <div class="swiper" id="brandSwiper" aria-label="品牌圖片瀏覽">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev" aria-label="上一張"></div>
+            <div class="swiper-button-next" aria-label="下一張"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JSON-LD (可依實際資料取代) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Optician",
+    "name": "【店名佔位】",
+    "url": "https://example.com/",
+    "image": "https://images.unsplash.com/photo-1512374382149-233c42b6a83f?w=1200",
+    "telephone": "+886-2-0000-0000",
+    "address": {"@type":"PostalAddress","addressLocality":"台中市","streetAddress":"○○區○○路100號","postalCode":"000"},
+    "openingHours": [
+      "Mo-Fr 10:00-21:00",
+      "Sa 11:00-20:00"
+    ],
+    "sameAs": ["https://www.facebook.com/","https://www.instagram.com/"]
+  }
+  </script>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script>
+    // Mini nav 顯示控制
+    const miniNav = document.querySelector('.mini-nav');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 120){ miniNav.classList.add('show'); } else { miniNav.classList.remove('show'); }
+    });
+
+    // Swiper 初始化（空間介紹）
+    const spaceSwiper = new Swiper('#spaceSwiper', {
+      loop: true,
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      autoplay: { delay: 4200, disableOnInteraction: false },
+    });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } })
+    }, {threshold: .15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // 預約 Modal 控制（多個入口） + 針對 Google X-Frame-Options 的降級處理
+    const APPT_URL = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1Y_AI8l8z6DfNPidv-V2te-8ABbNRli31QWWvpjBWyZ53F0YQ5StwhnCmZiYk_ZFo6qT7bEF8_?gv=true";
+    const modal = document.getElementById('bookingModal');
+    const openers = [document.getElementById('openBooking'), document.getElementById('openBooking2'), document.getElementById('openBooking3')].filter(Boolean);
+    const closer = document.getElementById('closeBooking');
+    const frame = document.getElementById('bookingFrame');
+    const fallback = document.getElementById('bookingFallback');
+    const openInNewTabBtn = document.getElementById('openInNewTab');
+
+    const openNewTab = () => window.open(APPT_URL, '_blank', 'noopener');
+    if(openInNewTabBtn){ openInNewTabBtn.addEventListener('click', openNewTab); }
+
+    openers.forEach(btn=> btn.addEventListener('click', ()=>{
+      // 桌機與手機一律先嘗試在彈窗內嵌入；若載入失敗才引導新分頁
+      modal.classList.add('open');
+      modal.removeAttribute('aria-hidden');
+      document.body.style.overflow='hidden';
+
+      fallback.classList.remove('hidden');
+      let loaded = false; let timer = null;
+      frame.onload = ()=>{ loaded = true; fallback.classList.add('hidden'); if(timer) clearTimeout(timer); };
+      frame.src = APPT_URL;
+
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      // 手機上給較短等待時間，提升體驗
+      const wait = isSmallScreen ? 2000 : 3000;
+      timer = setTimeout(()=>{
+        if(!loaded){
+          // 保持 fallback 顯示「在新分頁開啟」按鈕，由使用者決定是否跳出
+        }
+      }, wait);
+    }));
+
+    const closeModal = ()=>{
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+      // 清理 iframe，避免背景播放與焦點問題
+      frame.removeAttribute('src');
+      frame.onload = null;
+      fallback.classList.add('hidden');
+    };
+
+    closer.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
+  </script>
+
+  <script>
+    // ======= 品牌彈窗 & 圖庫 =======
+    const brandModal = document.getElementById('brandModal');
+    const brandTitle = document.getElementById('brandTitle');
+    const brandDesc = document.getElementById('brandDesc');
+    const brandSwiperEl = document.getElementById('brandSwiper');
+    const brandClose = document.getElementById('closeBrand');
+    let brandSwiper = null;
+
+    function openBrandModal(item){
+      const title = item.dataset.title || '品牌';
+      const desc = item.dataset.desc || '';
+      const images = (item.dataset.images || '').split('|').filter(Boolean);
+
+      brandTitle.textContent = title;
+      brandDesc.textContent = desc;
+
+      const wrapper = brandSwiperEl.querySelector('.swiper-wrapper');
+      wrapper.innerHTML = '';
+      images.forEach((url)=>{
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.src = url;
+        img.alt = `${title} 圖片`;
+        slide.appendChild(img);
+        wrapper.appendChild(slide);
+      });
+
+      // 先顯示 Modal，再初始化 Swiper，避免隱藏狀態下尺寸計算為 0
+      brandModal.classList.add('open');
+      brandModal.removeAttribute('aria-hidden');
+      document.body.style.overflow='hidden';
+
+      if(brandSwiper){ brandSwiper.destroy(true, true); brandSwiper = null; }
+      requestAnimationFrame(()=>{
+        brandSwiper = new Swiper('#brandSwiper', {
+        loop: images.length > 1,
+        slidesPerView: 1,
+        spaceBetween: 8,
+        centeredSlides: true,
+        observer: true,
+        observeParents: true,
+        pagination: { el: '#brandSwiper .swiper-pagination', clickable: true },
+        navigation: { nextEl: '#brandSwiper .swiper-button-next', prevEl: '#brandSwiper .swiper-button-prev' },
+        autoplay: images.length > 1 ? { delay: 3500, disableOnInteraction: false } : false,
+        on: { imagesReady(){ this.update(); } }
+      });
+      setTimeout(()=> brandSwiper && brandSwiper.update(), 0);
+      });
+    }
+
+    function closeBrandModal(){
+      brandModal.classList.remove('open');
+      brandModal.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+      if(brandSwiper){ brandSwiper.destroy(true, true); brandSwiper = null; }
+      const wrapper = brandSwiperEl.querySelector('.swiper-wrapper');
+      if(wrapper) wrapper.innerHTML = '';
+    }
+
+    document.querySelectorAll('.brand-item').forEach((item)=>{
+      item.addEventListener('click', ()=> openBrandModal(item));
+      item.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openBrandModal(item); } });
+    });
+
+    brandClose.addEventListener('click', closeBrandModal);
+    brandModal.addEventListener('click', (e)=>{ if(e.target === brandModal) closeBrandModal(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && brandModal.classList.contains('open')) closeBrandModal(); });
+
+    // 內部錨點平滑捲動 + 偏移，避免被頂部迷你導覽遮住
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        if(id && id.length > 1){
+          const el = document.querySelector(id);
+          if(el){
+            e.preventDefault();
+            const y = el.getBoundingClientRect().top + window.pageYOffset - 84; // 與 scroll-margin-top 對齊
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  </script>
+
+  <!-- 備註：
+    1) 需求文件出現兩個 section6，本範本已校正為七個段落。
+    2) 遵守台灣驗光/醫療廣告法規：文案維持中性，不作療效宣稱；若需細化請逐條審閱。
+    3) 直接下載為 index.html 上傳即可使用；Logo/色彩可依品牌調整。
+  -->
+</body>
+</html>
